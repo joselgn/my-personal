@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/meu-login', function () {
+    return view('meu-login');
+})->name('meu-login');
