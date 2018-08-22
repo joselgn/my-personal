@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="meu-login">Login Teste</a>
+                    <a href="{{ url('meu-login') }}">Login Teste</a>
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
