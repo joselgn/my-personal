@@ -16,4 +16,4 @@ Route::get('/','IndexController@index');
 Route::get('/meu-login','IndexController@login');
 
 //Auth Own
-Route::get('/login','LoginController@entrar');
+Route::post('/login','LoginController@entrar');
