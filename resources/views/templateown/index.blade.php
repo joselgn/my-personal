@@ -4,52 +4,6 @@
 
 @section('content')
 
-<!-- HOME -->
-<section id="home" class="slider" data-stellar-background-ratio="0.5">
-    <div class="row">
-
-        <div class="owl-carousel owl-theme">
-            <div class="item item-first">
-                <div class="caption">
-                    <div class="container">
-                        <div class="col-md-8 col-sm-12">
-                            <h3>Eatery Cafe &amp; Restaurant</h3>
-                            <h1>Our mission is to provide an unforgettable experience</h1>
-                            <a href="#team" class="section-btn btn btn-default smoothScroll">Meet our chef</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item item-second">
-                <div class="caption">
-                    <div class="container">
-                        <div class="col-md-8 col-sm-12">
-                            <h3>Your Perfect Breakfast</h3>
-                            <h1>The best dinning quality can be here too!</h1>
-                            <a href="#menu" class="section-btn btn btn-default smoothScroll">Discover menu</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item item-third">
-                <div class="caption">
-                    <div class="container">
-                        <div class="col-md-8 col-sm-12">
-                            <h3>New Restaurant in Town</h3>
-                            <h1>Enjoy our special menus every Sunday and Friday</h1>
-                            <a href="#contact" class="section-btn btn btn-default smoothScroll">Reservation</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
 <!-- ABOUT -->
 <section id="about" data-stellar-background-ratio="0.5">
     <div class="container">
@@ -188,7 +142,7 @@
             <div class="col-md-4 col-sm-6">
                 <!-- MENU THUMB -->
                 <div class="menu-thumb">
-                    <a href="images/menu-image2.jpg" class="image-popup" title="Self-made Salad">
+                    <a href="img/templateown/menu-image2.jpg" class="image-popup" title="Self-made Salad">
                         <img src="img/templateown/menu-image2.jpg" class="img-responsive" alt="">
 
                         <div class="menu-info">
@@ -207,7 +161,7 @@
             <div class="col-md-4 col-sm-6">
                 <!-- MENU THUMB -->
                 <div class="menu-thumb">
-                    <a href="images/menu-image3.jpg" class="image-popup" title="Chinese Noodle">
+                    <a href="img/templateown/menu-image3.jpg" class="image-popup" title="Chinese Noodle">
                         <img src="img/templateown/menu-image3.jpg" class="img-responsive" alt="">
 
                         <div class="menu-info">
@@ -226,7 +180,7 @@
             <div class="col-md-4 col-sm-6">
                 <!-- MENU THUMB -->
                 <div class="menu-thumb">
-                    <a href="images/menu-image4.jpg" class="image-popup" title="Rice Soup">
+                    <a href="img/templateown/menu-image4.jpg" class="image-popup" title="Rice Soup">
                         <img src="img/templateown/menu-image4.jpg" class="img-responsive" alt="">
 
                         <div class="menu-info">
@@ -245,7 +199,7 @@
             <div class="col-md-4 col-sm-6">
                 <!-- MENU THUMB -->
                 <div class="menu-thumb">
-                    <a href="images/menu-image5.jpg" class="image-popup" title="Project title">
+                    <a href="img/templateown/menu-image5.jpg" class="image-popup" title="Project title">
                         <img src="img/templateown/menu-image5.jpg" class="img-responsive" alt="">
 
                         <div class="menu-info">
@@ -264,7 +218,7 @@
             <div class="col-md-4 col-sm-6">
                 <!-- MENU THUMB -->
                 <div class="menu-thumb">
-                    <a href="images/menu-image6.jpg" class="image-popup" title="Project title">
+                    <a href="img/templateown/menu-image6.jpg" class="image-popup" title="Project title">
                         <img src="img/templateown/menu-image6.jpg" class="img-responsive" alt="">
 
                         <div class="menu-info">

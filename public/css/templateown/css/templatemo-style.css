@@ -304,7 +304,8 @@ http://www.templatemo.com/tm-515-eatery
     }
 
     .custom-navbar.top-nav-collapse {
-      background: #ffffff;
+      /*background: #ffffff;*/
+      background: rgba(255,255,255,0.7);
       -webkit-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
       -moz-box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
       box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
@@ -403,15 +404,15 @@ http://www.templatemo.com/tm-515-eatery
   }
 
   .slider .item-first {
-    background-image: url('../../img/templateown/slider-image1.jpg');
+    background-image: url("../../../img/templateown/slider-image1.jpg");
   }
 
   .slider .item-second {
-    background-image: url('../../img/templateown/slider-image2.jpg');
+    background-image: url('../../../img/templateown/slider-image2.jpg');
   }
 
   .slider .item-third {
-    background-image: url('../../img/templateown/slider-image3.jpg');
+    background-image: url('../../../img/templateown/slider-image3.jpg');
   }
 
   .slider .item-second .section-btn {
@@ -662,7 +663,7 @@ http://www.templatemo.com/tm-515-eatery
   -----------------------------------------*/
 
   #testimonial {
-    background: url('img/templateown/testimonial-bg.jpg') center center no-repeat;
+    background: url('../../../img/templateown/testimonial-bg.jpg') center center no-repeat;
     background-size: cover;
   }
 
@@ -801,7 +802,7 @@ http://www.templatemo.com/tm-515-eatery
 
   .footer-open-hour {
     background: #ce3232;
-    background: url('img/templateown/footer-open-hour-bg.jpg') center center no-repeat;
+    background: url("../../../img/templateown/footer-open-hour-bg.jpg") center center no-repeat;
     background-size: cover;
     border-radius: 20px;
     margin-top: 0;
