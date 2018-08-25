@@ -13,7 +13,7 @@
 
 Route::get('/','IndexController@index');
 
-Route::get('/meu-login','IndexController@login');
+Route::get('/meu-login/{erro?}','IndexController@login')->where('erro', '[0,1]');
 
 //Auth Own
-Route::post('/login','LoginController@entrar');
+Route::post('/login','LoginownController@entrar');
