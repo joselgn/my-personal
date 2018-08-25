@@ -95,7 +95,7 @@ class LoginownController extends Controller{
 
             //Preparando dados para Criptografar a senha
             $salt = $dadosUsuario->TX_SALT;
-            $pass = $modelUsuario->criptografaPassword($senha, $salt);
+            $pass = $modelUsuario->_criptografaPassword($senha, $salt);
 
             //Preparando os dados para a validaçao do login
             $credentials = array(
@@ -144,7 +144,7 @@ class LoginownController extends Controller{
         ];
     }//rules message logins
 
-   //Cria sessao - Autenticaçao OK
+    //Cria sessao - Autenticaçao OK
     private function _openSessId(Usuario $dataUser){
         Auth::guard('sessIDAuth');
         Auth::loginUsingId($dataUser->ID, true);

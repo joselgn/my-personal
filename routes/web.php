@@ -1,19 +1,24 @@
 <?php
+/****************************************************/
+/********** TELAS DO SISTEMA ************************/
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+//Inicial - home
 Route::get('/','IndexController@index');
 
+//Login - Autenticaçao
 Route::get('/meu-login/{erro?}','IndexController@login')->where('erro', '[0,1]');
 
-//Auth Own
+//Novo cadastro - Registro de Usuario
+Route::get('/novo-cadastro/{erro?}','IndexController@novoCadastro')->where('erro', '[0,1]');
+
+
+
+
+/****************************************************/
+/********* FUNÇOES DO SISTEMA ***********************/
+
+//Auth Own - Autentica login de usuario
 Route::post('/login','LoginownController@entrar');
+
+//Register New - Registro de Usuario
+Route::post('/novo-cadastro','LoginController@novo');
