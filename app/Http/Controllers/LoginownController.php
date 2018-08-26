@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 //Validador
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Validator;
 
 //Criando login proprio - Autenticaçao propria
@@ -101,13 +102,15 @@ class LoginownController extends Controller{
             $credentials = array(
                 'TX_LOGIN'  => $usuario,
                 'TX_SENHA'  => $pass,
+                'password'  => $pass,
                 'BL_ATIVO' => 1,//Apenas usuario ativo
             );//credenciais
 
             //Metodo Auth::attempt => retorna true em caso de autenticaçao bem sucedida e false caso nao seja bem sucedida.
-            if(Auth::attempt($credentials)){
+            //if(Auth::attempt($credentials)){
+            if(Hash::check($pass,$dadosUsuario->TX_SENHA)){
                 //Authentication Success - Start Session
-                 $this->_openSessId($dbUsuario);
+                 $this->_openSessId($dadosUsuario);
                  return true;
             }else{
                 //Authentication failed
@@ -147,8 +150,10 @@ class LoginownController extends Controller{
     //Cria sessao - Autenticaçao OK
     private function _openSessId(Usuario $dataUser){
         Auth::guard('sessIDAuth');
-        Auth::loginUsingId($dataUser->ID, true);
-        Auth::once($dataUser);
+        //Auth::loginUsingId(['ID'=>$dataUser->ID],true);
+        $dataUser->password = $dataUser->TX_SENHA;
+        Auth::login($dataUser);
+        Auth::once(['ID'=>$dataUser->ID,'TX_LOGIN'=>$dataUser->TX_LOGIN]);
     }//open Session ID
 
     //Fecha a sessao
@@ -156,4 +161,7 @@ class LoginownController extends Controller{
         Auth::logout();
     }//close Session ID
 
+    protected function getCredentials(Request $request) {
+        return $request->only($this->username(), 'TX_SENHA');
+    }
 }//Class

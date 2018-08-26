@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Usuario extends Model implements Authenticatable{
+    //Nome da Tabela
+    protected $table = 'usuarios';
+
+    //Primaty Key
+    protected $primaryKey = 'ID';//Define a coluna como chave primaria
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['TX_NOME', 'TX_LOGIN','TX_SENHA','TX_SALT'];//Define os atributos que podem ser alterados na tabela
+    protected $fillable = ['TX_NOME', 'TX_LOGIN', 'TX_SENHA', 'TX_SALT'];//Define os atributos que podem ser alterados na tabela
 
     /**
      * The attributes that aren't mass assignable.
@@ -23,7 +30,8 @@ class Usuario extends Model implements Authenticatable{
     //ou se usa o $fillable ou se usa o $guarded - nao e recomendado utilzar os dois
 
     //Retorna um registro especifico atraves do login
-    public function retornaLogin($login){
+    public function retornaLogin($login)
+    {
         $query = $this->where('TX_LOGIN', $login)
             ->orderBy('TX_LOGIN', 'ASC')
             ->take(10)//limit
@@ -32,32 +40,37 @@ class Usuario extends Model implements Authenticatable{
     }//Retorna registros
 
     //Retorna o registro atraves do ID
-    public function retornaRegistro($id){
+    public function retornaRegistro($id)
+    {
         $registro = $this->find($id);
         return $registro;
     }//retorna registro pelo ID
 
     //Retorna o registros atraves de um campo especifico
-    public function retornaRegistroCondicao($campo,$valor){
-        $registro = $this->where($campo,$valor);
+    public function retornaRegistroCondicao($campo, $valor)
+    {
+        $registro = $this->where($campo, $valor);
         return $registro;
     }//retorna registro atraves de um campo especifico
 
     //Create new user Register
-    public function novoRegistro($arrayData){
+    public function novoRegistro($arrayData)
+    {
         $userModel = new Usuario();
         $userModel->BL_ATIVO = 1;
         $userModel->TX_LOGIN = $arrayData['login'];
 
         //Create the password
         $salt = $this->_createSalt();
-        $password = $this->_criptografaPassword($arrayData['pass'],$salt);
+        $password = $this->_criptografaPassword($arrayData['pass'], $salt);
         $userModel->TX_SALT = $salt;
-        $userModel->TX_SENHA = $password;
+        $userModel->TX_SENHA = bcrypt($password);
 
-        $userModel->save();
+        if ($userModel->save())
+            return true;
+        else
+            return false;
     }//Novo Registro / New Register
-
 
 
     /**************************************************************************
@@ -65,10 +78,11 @@ class Usuario extends Model implements Authenticatable{
      **************************************************************************/
 
     //Funçao para critpografar senha
-    public function _criptografaPassword($password, $salt){
+    public function _criptografaPassword($password, $salt)
+    {
         //Criando Hash de criptografia
-        $txtRetorno = $password.$salt;
-        for($i=0;$i<1000;$i++){
+        $txtRetorno = $password . $salt;
+        for ($i = 0; $i < 1000; $i++) {
             $txtRetorno = hash('sha256', $txtRetorno);
         }//foreach has password
 
@@ -76,25 +90,24 @@ class Usuario extends Model implements Authenticatable{
     }//criptografa a senha baseado no SALT de referencia
 
     //Funçao para Criar SALT - Create SALT
-    public function _createSalt($min=6,$max=128){
+    public function _createSalt($min = 6, $max = 90)
+    {
         $arrPossibilities = [
-            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-            'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
-            '0','1','2','3','4','5','6','7','8','9'
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '$', '%', '/', '.', '@', '&', '-', '$', '#', '+', '*', '!', '?',
         ];//array
 
-        $qntyChars = rand($min,$max);
+        $qntyChars = rand($min, $max);
         $strSalt = '';
-        for($i=0;$i<$qntyChars;$i++){
-            $charpos = rand(0,(count($arrPossibilities)-1));
+        for ($i = 0; $i < $qntyChars; $i++) {
+            $charpos = rand(0, (count($arrPossibilities) - 1));
 
             $strSalt .= $arrPossibilities[$charpos];
         }//for mounting SALT
 
         return $strSalt;
     }//create SALT
-
-
 
 
     /**************************************************************************
@@ -107,7 +120,8 @@ class Usuario extends Model implements Authenticatable{
      *
      * @return string
      */
-    public function getAuthIdentifierName(){
+    public function getAuthIdentifierName()
+    {
         return $this->TX_LOGIN;
     }//Auth Identifier Name
 
@@ -117,7 +131,8 @@ class Usuario extends Model implements Authenticatable{
      *
      * @return mixed
      */
-    public function getAuthIdentifier(){
+    public function getAuthIdentifier()
+    {
         return $this->ID;
     }//Auth ID
 
@@ -127,7 +142,8 @@ class Usuario extends Model implements Authenticatable{
      *
      * @return string
      */
-    public function getAuthPassword(){
+    public function getAuthPassword()
+    {
         return $this->TX_SENHA;
     }//Auth Password
 
@@ -137,7 +153,8 @@ class Usuario extends Model implements Authenticatable{
      *
      * @return string
      */
-    public function getRememberToken(){
+    public function getRememberToken()
+    {
         return $this->remember_token;
     }//Remember Token
 
@@ -148,16 +165,11 @@ class Usuario extends Model implements Authenticatable{
      * @param  string $value
      * @return void
      */
-    public function setRememberToken($token){
+    public function setRememberToken($token)
+    {
         $this->remember_token = $token;
     }//Set token remember
-
-    /**
-     * Get the column name for the "remember me" token.
-     *
-     * @return string
-     */
-    public function getRememberTokenName(){
-        Auth::guard('sessId');
-    }//Rmember token name
+    public function getRememberTokenName() {
+       Auth::guard('sessIDAuth');
+    }//Set token remember
 }//class

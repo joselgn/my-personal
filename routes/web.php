@@ -17,8 +17,9 @@ Route::get('/novo-cadastro/{erro?}','IndexController@novoCadastro')->where('erro
 /****************************************************/
 /********* FUNÇOES DO SISTEMA ***********************/
 
+//Register New - Registro de novo Usuario
+Route::post('/novo-cadastro','IndexController@novo');
+
 //Auth Own - Autentica login de usuario
 Route::post('/login','LoginownController@entrar');
 
-//Register New - Registro de Usuario
-Route::post('/novo-cadastro','LoginController@novo');

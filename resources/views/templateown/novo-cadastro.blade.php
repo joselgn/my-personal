@@ -11,7 +11,7 @@
                 <?php $erro = request()->erro ?>
                 <div class="alert alert-{{ $erro==1 ? 'danger' : 'success' }} col-md-12 col-sm-12 col-lg-12">
                     <h3><?php echo $erro==1 ? 'Ocorreu um Erro!' : 'Registro efetuado com Sucesso!'; ?></h3>
-                    <?php echo utf8_encode(Session::get('info')) ?>
+                    <div class="col-md-12 col-sm-12 text-left"><?php echo utf8_encode(Session::get('info')) ?></div>
                 </div>
             @endif
 
@@ -31,7 +31,7 @@
 
                     <div class="row col-md-12 col-sm-12" style="margin-top:15px;">
                         <div class="col-md-5 col-sm-5">
-                            <input type="password" class="form-control" id="passconfirm" name="passconfirm" placeholder="Repita sua Senha">
+                            <input type="password" class="form-control" id="passconfirm" name="passconfirm" placeholder="Confirmaç&atilde;o de Senha">
                         </div>
 
                         <div class="col-md-2 col-sm-2">
@@ -39,6 +39,13 @@
                                 <i class="fa fa-key"></i>&nbsp;
                                 Cadastrar
                             </button>
+                        </div>
+                    </div>
+
+                    <div class="row col-md-12 col-sm-12">
+                        <div class="col-md-5 col-sm-12">
+                            <i class="fa fa-arrow-right"></i>&nbsp;
+                            <a href="{{ url('/meu-login#content') }}">Ir para a Tela de Login</a>
                         </div>
                     </div>
 
