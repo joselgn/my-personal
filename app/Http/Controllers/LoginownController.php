@@ -102,13 +102,24 @@ class LoginownController extends Controller{
             $credentials = array(
                 'TX_LOGIN'  => $usuario,
                 'TX_SENHA'  => $pass,
-                'password'  => $pass,
+                //'password'  => $pass,
                 'BL_ATIVO' => 1,//Apenas usuario ativo
             );//credenciais
 
+            //echo '<pre/>';
+            //var_dump(bcrypt($pass));
+            //var_dump(Hash::check($pass,$dadosUsuario->TX_SENHA));
+            //var_dump(Auth::attempt($credentials));
+            //var_dump(Auth::once($credentials));
+            //var_dump($dadosUsuario);
+            //var_dump(Auth::loginUsingId($dadosUsuario->ID,true));
+            //var_dump(Auth::id());
+            //exit;
+
             //Metodo Auth::attempt => retorna true em caso de autenticaçao bem sucedida e false caso nao seja bem sucedida.
             //if(Auth::attempt($credentials)){
-            if(Hash::check($pass,$dadosUsuario->TX_SENHA)){
+            if(Auth::loginUsingId($dadosUsuario->ID,true)){
+            //if(Hash::check($pass,$dadosUsuario->TX_SENHA)){
                 //Authentication Success - Start Session
                  $this->_openSessId($dadosUsuario);
                  return true;
@@ -151,7 +162,6 @@ class LoginownController extends Controller{
     private function _openSessId(Usuario $dataUser){
         Auth::guard('sessIDAuth');
         //Auth::loginUsingId(['ID'=>$dataUser->ID],true);
-        $dataUser->password = $dataUser->TX_SENHA;
         Auth::login($dataUser);
         Auth::once(['ID'=>$dataUser->ID,'TX_LOGIN'=>$dataUser->TX_LOGIN]);
     }//open Session ID

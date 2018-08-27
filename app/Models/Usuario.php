@@ -10,8 +10,13 @@ class Usuario extends Model implements Authenticatable{
     //Nome da Tabela
     protected $table = 'usuarios';
 
-    //Primaty Key
-    protected $primaryKey = 'ID';//Define a coluna como chave primaria
+    /**
+     * Primary Key
+     * The table associated with the model.
+     *
+     * @var Integer
+     */
+    //protected $primaryKey = 'ID';//Define a coluna como chave primaria
 
     /**
      * The attributes that are mass assignable.
@@ -120,8 +125,7 @@ class Usuario extends Model implements Authenticatable{
      *
      * @return string
      */
-    public function getAuthIdentifierName()
-    {
+    public function getAuthIdentifierName(){
         return $this->TX_LOGIN;
     }//Auth Identifier Name
 
@@ -131,8 +135,7 @@ class Usuario extends Model implements Authenticatable{
      *
      * @return mixed
      */
-    public function getAuthIdentifier()
-    {
+    public function getAuthIdentifier(){
         return $this->ID;
     }//Auth ID
 
@@ -172,4 +175,8 @@ class Usuario extends Model implements Authenticatable{
     public function getRememberTokenName() {
        Auth::guard('sessIDAuth');
     }//Set token remember
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
+    }
 }//class
