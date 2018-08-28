@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="{{ asset('css/templateown/css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/templateown/css/magnific-popup.css') }}">
 
-    <!-- MAIN CSS -->
-    <link rel="stylesheet" href="{{ asset('css/templateown/css/templatemo-style.css') }}">
+    <!-- MAIN CSS
+    <link rel="stylesheet" href="{{ asset('css/templateown/css/templatemo-style.css') }}">-->
 
     <!-- PAGE TITLE -->
     <title>@yield('title_txt')</title>
@@ -50,18 +50,11 @@
 
             <!-- MENU LINKS -->
             <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-nav-first">
-                    <li><a href="{{ url('/#about') }}" class="smoothScroll">About</a></li>
-                    <li><a href="{{ url('/#team') }}" class="smoothScroll">Chef</a></li>
-                    <li><a href="{{ url('/#menu') }}" class="smoothScroll">Menu</a></li>
-                    <li><a href="{{ url('/#contact') }}" class="smoothScroll">Contact</a></li>
-                    <li><a href="{{ url('meu-login/#content') }}" class="smoothScroll"><i class="fa fa-user"></i> Login</a></li>
-                </ul>
-
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a href="#"><i class="fa fa-phone"></i> 010 020 0340</a></li> -->
-                    <a href="#footer" class="section-btn">
-                        Entre em Contato !
+                    <a href="{{ url('/logout') }}" class="section-btn">
+                        <i class="fa fa-sign-out"></i>&nbsp;
+                        Sair
                     </a>
                 </ul>
             </div>

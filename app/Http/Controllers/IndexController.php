@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 class IndexController extends Controller
 {
     //Index - Home
@@ -14,7 +17,13 @@ class IndexController extends Controller
 
     //Login
     public function Login(){
-        return view('templateown.meu-login');
+        //Verfify if the user is logged on
+        if(Auth::check()){
+            //return redirect('/painel');
+            return redirect('/painel');
+        }else{
+            return view('templateown.meu-login');
+        }//if / else auth check
     }//Login Action
 
     //Tela cadastro de novo usuario

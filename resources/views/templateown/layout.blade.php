@@ -55,7 +55,7 @@
                     <li><a href="{{ url('/#team') }}" class="smoothScroll">Chef</a></li>
                     <li><a href="{{ url('/#menu') }}" class="smoothScroll">Menu</a></li>
                     <li><a href="{{ url('/#contact') }}" class="smoothScroll">Contact</a></li>
-                    <li><a href="{{ url('meu-login/#content') }}" class="smoothScroll"><i class="fa fa-user"></i> Login</a></li>
+                    <li><a href="{{ url('/login/#content') }}" class="smoothScroll"><i class="fa fa-user"></i> Login</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">

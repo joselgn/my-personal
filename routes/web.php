@@ -6,7 +6,7 @@
 Route::get('/','IndexController@index');
 
 //Login - Autenticaçao
-Route::get('/meu-login/{erro?}','IndexController@login')->where('erro', '[0,1]');
+Route::get('/login/{erro?}','IndexController@login')->where('erro', '[0,1]')->name('login');
 
 //Novo cadastro - Registro de Usuario
 Route::get('/novo-cadastro/{erro?}','IndexController@novoCadastro')->where('erro', '[0,1]');
@@ -19,14 +19,20 @@ Route::get('/novo-cadastro/{erro?}','IndexController@novoCadastro')->where('erro
 Route::post('/novo-cadastro','IndexController@novo');
 
 //Auth Own - Autentica login de usuario
-Route::post('/login','LoginownController@entrar');
+Route::post('/login','LoginController@entrar');
 
-
+//Auth Logout
+Route::get('/logout','LoginController@logout');
 
 /****************************************************/
 /********* ACESSO SOMENTE COM AUTENTICAÇAO ***********************/
+//Tudo que compor a rota com o prefixo eh autenticado
+Route::group(['prefix' => 'painel'], function() {
+    Auth::routes();//Autentica as rotas que contem esse perfixo
+    //Route::auth();
+});
 
 //Panel Administrator
 Route::group(['middleware' => 'auth'], function(){
-    $this->get('/painel','PainelController@index');
+    $this->get('/painel','admin\PainelController@index');
 });//AUTH routes

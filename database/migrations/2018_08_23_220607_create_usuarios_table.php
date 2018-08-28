@@ -17,7 +17,7 @@ class CreateUsuariosTable extends Migration
             $table->increments('id');
             $table->string('BL_ATIVO', false)->comment('1 - Ativo / 2 - Inativo');
             $table->string('TX_LOGIN');
-            $table->string('TX_SENHA',256);
+            $table->string('password',256);
             $table->string('TX_SALT',128);
             $table->rememberToken();
             $table->timestamps();

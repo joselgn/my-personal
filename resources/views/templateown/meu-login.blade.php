@@ -10,10 +10,14 @@
 
             @if(Session::has('info'))
                 <?php $erro = request()->erro ?>
-                <div class="alert alert-{{ $erro==1 ? 'danger' : 'success' }} col-md-12 col-sm-12 col-lg-12">
-                    <h3><?php echo $erro==1 ? 'Ocorreu um Erro!' : 'Autenticado com Sucesso!'; ?></h3>
-                    <?php echo utf8_encode(Session::get('info')) ?>
-                </div>
+
+                <!-- trait Message -->
+                @if($erro!=null && $erro!='')
+                    <div class="alert alert-{{ $erro==1 ? 'danger' : 'success' }} col-md-12 col-sm-12 col-lg-12">
+                        <h3><?php echo $erro==1 ? 'Ocorreu um Erro!' : 'Autenticado com Sucesso!'; ?></h3>
+                        <?php echo utf8_encode(Session::get('info')) ?>
+                    </div>
+                @endif
             @endif
 
             <div class="panel-body">

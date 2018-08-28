@@ -23,7 +23,7 @@ class Usuario extends Model implements Authenticatable{
      *
      * @var array
      */
-    protected $fillable = ['TX_NOME', 'TX_LOGIN', 'TX_SENHA', 'TX_SALT'];//Define os atributos que podem ser alterados na tabela
+    protected $fillable = ['TX_NOME', 'TX_LOGIN', 'password', 'TX_SALT'];//Define os atributos que podem ser alterados na tabela
 
     /**
      * The attributes that aren't mass assignable.
@@ -69,7 +69,7 @@ class Usuario extends Model implements Authenticatable{
         $salt = $this->_createSalt();
         $password = $this->_criptografaPassword($arrayData['pass'], $salt);
         $userModel->TX_SALT = $salt;
-        $userModel->TX_SENHA = bcrypt($password);
+        $userModel->password = bcrypt($password);
 
         if ($userModel->save())
             return true;
@@ -115,8 +115,9 @@ class Usuario extends Model implements Authenticatable{
     }//create SALT
 
 
+
     /**************************************************************************
-     * METODOS PADROES - OBRIGATORIOS A SEREM IMPLEMENTADOS - IMPLEMENTS
+     * METODOS PADROES - OBRIGATORIOS A SEREM IMPLEMENTADOS - IMPLEMENTS - NAO PODEM SER APAGADAS
      **************************************************************************/
 
     /**
@@ -136,7 +137,7 @@ class Usuario extends Model implements Authenticatable{
      * @return mixed
      */
     public function getAuthIdentifier(){
-        return $this->ID;
+        return $this->id;
     }//Auth ID
 
     /**
@@ -147,7 +148,7 @@ class Usuario extends Model implements Authenticatable{
      */
     public function getAuthPassword()
     {
-        return $this->TX_SENHA;
+        return $this->password;
     }//Auth Password
 
     /**
@@ -176,7 +177,8 @@ class Usuario extends Model implements Authenticatable{
        Auth::guard('sessIDAuth');
     }//Set token remember
 
+    //Seta a criptografia na senha para coincidir com a do BD
     public function setPasswordAttribute($value){
         $this->attributes['password'] = bcrypt($value);
-    }
+    }//set Password attributres
 }//class

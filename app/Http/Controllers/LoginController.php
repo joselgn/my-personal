@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Session;
 //Database - Credential to login
 use App\Models\Usuario;
 
-class LoginownController extends Controller{
+class LoginController extends Controller{
 
     use AuthenticatesUsers;
 
@@ -39,6 +39,12 @@ class LoginownController extends Controller{
     public function entrar(Request $request){
         $erro=0;
         $msg='';
+
+        //Verfify if the user is logged on
+        if(Auth::check()){
+            return redirect('/painel');
+            //return redirect()->intended('painel');
+        }//auth check
 
         //Fazendo a validaçao dos dados
         $validation = validator($request->all(),$this->_rulesLogin(),$this->_rulesMessagesLogin());
@@ -68,17 +74,23 @@ class LoginownController extends Controller{
                 $erro=1;
                 $msg='Usu&aacute;rio e/ou senha inv&aacute;lido! Tente novamente.';
             }else{
-                //Redireciona em caso de sucesso de login
                 return redirect()->intended('painel');
             }//if error login
         }//if autentica
 
         //Retornando ao JSON
        // return json_encode(array('erro'=>$erro,'msg'=>$msg));
-        return redirect()->guest('/meu-login/'.$erro.'#content')->with('info',$msg);
+        return redirect()->guest('/login/'.$erro.'#content')->with('info',$msg);
     }//function entrar
 
 
+    //Quebra a sessao de usuario - LOGOUT
+    public function logout(){
+        Auth::logout();
+        return redirect()->guest('/login/0#content')->with('info','Sess&atilde;o encerrada!');
+
+        //return redirect('/');
+    }//Logout
 
 
     /**************************************************************************
@@ -98,31 +110,14 @@ class LoginownController extends Controller{
             $salt = $dadosUsuario->TX_SALT;
             $pass = $modelUsuario->_criptografaPassword($senha, $salt);
 
-            //Preparando os dados para a validaçao do login
-            $credentials = array(
-                'TX_LOGIN'  => $usuario,
-                'TX_SENHA'  => $pass,
-                //'password'  => $pass,
-                'BL_ATIVO' => 1,//Apenas usuario ativo
-            );//credenciais
+            $credentials = ['TX_LOGIN'=>$dadosUsuario->TX_LOGIN,'password'=>$pass,'BL_ATIVO'=>1];
 
-            //echo '<pre/>';
-            //var_dump(bcrypt($pass));
-            //var_dump(Hash::check($pass,$dadosUsuario->TX_SENHA));
-            //var_dump(Auth::attempt($credentials));
-            //var_dump(Auth::once($credentials));
-            //var_dump($dadosUsuario);
-            //var_dump(Auth::loginUsingId($dadosUsuario->ID,true));
-            //var_dump(Auth::id());
-            //exit;
-
-            //Metodo Auth::attempt => retorna true em caso de autenticaçao bem sucedida e false caso nao seja bem sucedida.
+            //Validaçao do login
+            if( Hash::check($pass,$dadosUsuario->password) && $dadosUsuario->BL_ATIVO==1 ){
             //if(Auth::attempt($credentials)){
-            if(Auth::loginUsingId($dadosUsuario->ID,true)){
-            //if(Hash::check($pass,$dadosUsuario->TX_SENHA)){
                 //Authentication Success - Start Session
-                 $this->_openSessId($dadosUsuario);
-                 return true;
+                $this->_openSessId($dadosUsuario);
+                return true;
             }else{
                 //Authentication failed
                 return false;
@@ -161,17 +156,7 @@ class LoginownController extends Controller{
     //Cria sessao - Autenticaçao OK
     private function _openSessId(Usuario $dataUser){
         Auth::guard('sessIDAuth');
-        //Auth::loginUsingId(['ID'=>$dataUser->ID],true);
-        Auth::login($dataUser);
-        Auth::once(['ID'=>$dataUser->ID,'TX_LOGIN'=>$dataUser->TX_LOGIN]);
+        Auth::loginUsingId($dataUser->id);
+        Auth::once(['TX_LOGIN'=>$dataUser->TX_LOGIN,'password'=> $dataUser->password]);
     }//open Session ID
-
-    //Fecha a sessao
-    private function _closeSessId(){
-        Auth::logout();
-    }//close Session ID
-
-    protected function getCredentials(Request $request) {
-        return $request->only($this->username(), 'TX_SENHA');
-    }
 }//Class
