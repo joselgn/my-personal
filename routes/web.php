@@ -6,7 +6,7 @@
 Route::get('/','IndexController@index');
 
 //Login - Autenticaçao
-Route::get('/login/{erro?}','IndexController@login')->where('erro', '[0,1]')->name('login');
+Route::get('/login/{erro?}','IndexController@login')->where('erro', '[0-2]')->name('login');
 
 //Novo cadastro - Registro de Usuario
 Route::get('/novo-cadastro/{erro?}','IndexController@novoCadastro')->where('erro', '[0,1]');
@@ -22,7 +22,9 @@ Route::post('/novo-cadastro','IndexController@novo');
 Route::post('/login','LoginController@entrar');
 
 //Auth Logout
-Route::get('/logout','LoginController@logout');
+Route::post('/logout','LoginController@logout');
+//Auth Logout
+Route::get('/painel','admin\PainelController@index');
 
 /****************************************************/
 /********* ACESSO SOMENTE COM AUTENTICAÇAO ***********************/

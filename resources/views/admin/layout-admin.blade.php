@@ -52,10 +52,15 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a href="#"><i class="fa fa-phone"></i> 010 020 0340</a></li> -->
-                    <a href="{{ url('/logout') }}" class="section-btn">
-                        <i class="fa fa-sign-out"></i>&nbsp;
-                        Sair
-                    </a>
+                    <form id="logout-form" action="{{ url('/logout') }}" method="POST">
+                        {{ csrf_field() }}
+
+                        <button class="section-btn" type="submit">
+                            <i class="fa fa-sign-out"></i>&nbsp;
+                            Sair
+                        </button>
+                    </form>
+
                 </ul>
             </div>
         </div>
@@ -70,6 +75,16 @@
                     <!--  @yield('content')-->
 
                     USUARIO ESTA LOGADO AQUI...
+
+
+
+                    <?php
+                         echo '<pre/>';
+                         var_dump(\Illuminate\Support\Facades\Auth::id());
+                         var_dump(\Illuminate\Support\Facades\Auth::user());
+                         exit;
+                    ?>
+
                 </div>
             </div>
         </div>

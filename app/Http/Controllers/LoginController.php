@@ -87,7 +87,11 @@ class LoginController extends Controller{
     //Quebra a sessao de usuario - LOGOUT
     public function logout(){
         Auth::logout();
-        return redirect()->guest('/login/0#content')->with('info','Sess&atilde;o encerrada!');
+        $this->guard()->logout();
+        Session::flush();
+        //Session::remove();
+
+        return redirect()->guest('/login/2#content')->with('info','Sess&atilde;o encerrada!');
 
         //return redirect('/');
     }//Logout
